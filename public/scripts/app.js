@@ -1,31 +1,28 @@
-"use strict";
+'use strict';
 
 /* global ReactDOM */
 console.log('Aplicación en ejecución');
+// ES6
+var user = {
+  name: 'Pepe',
+  cities: ['Zaragoza', 'Madrid', 'Lérida'],
+  showCities: function showCities() {
+    // ES6 metodo con formato ES6 
+    return this.cities;
+  }
+};
 
-var header = {
-  title: "Añadir cervezas",
-  subtitle: "Usa el formulario para añadir tus cervezas preferidas"
-
-  // condicionales para si no hay subtitulo
-};var template = React.createElement(
-  "header",
+// pongo llaves porque pongo codigo javascript {city}
+var template = React.createElement(
+  'div',
   null,
-  React.createElement(
-    "h1",
-    null,
-    header.title
-  ),
-  header.subtitle ? React.createElement(
-    "p",
-    null,
-    header.subtitle
-  ) : '',
-  header.subtitle && React.createElement(
-    "p",
-    null,
-    header.subtitle
-  )
+  user.showCities().map(function (city) {
+    return React.createElement(
+      'p',
+      null,
+      city
+    );
+  })
 );
 var appRoot = document.getElementById('app');
 ReactDOM.render(template, appRoot);

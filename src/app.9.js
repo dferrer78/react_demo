@@ -5,18 +5,12 @@ const user = {
   name: 'Pepe',
   cities: ['Zaragoza', 'Madrid', 'Lérida'],
   showCities  () { // ES6 metodo con formato ES6 
-      return this.cities
+      return this.cities.map( city => city)
   }
 }
 
-// pongo llaves porque pongo codigo javascript {city}
-const template = (
-  <div> 
-    {user.showCities().map(city => (
-      <p>{city}</p>
-    ))} 
-    
-  </div>
-)
+// condicionales para si no hay subtitulo
+const template = <div>{user.showCities()}</div>
+
 var appRoot = document.getElementById('app')
 ReactDOM.render(template, appRoot)
