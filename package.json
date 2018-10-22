@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "babel -w src/app.js --out-file public/scripts/app.js  --presets=env,react",
-    "start": "live-server ./public"
+    "start": "live-server ./public",
+    "start-dev": "npm run build & npm start"
   },
   "author": "daviddfg <david.dfg@gmail.com>",
   "license": "MIT",
