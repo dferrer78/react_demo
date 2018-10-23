@@ -5,6 +5,13 @@ const addOne = () => {
   console.log('addOne')
 }
 
+const minusOne = () => {
+  console.log('minusOne')
+}
+
+const reset = () => {
+  console.log('reset')
+}
 const template = (
   <div>
     <h1>Count: {count}</h1>
