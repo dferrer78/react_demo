@@ -1,26 +1,52 @@
 /* global ReactDOM */
-console.log('Aplicación en ejecución')
-let count = 0
-const addOne = () => {
-  console.log('addOne')
+
+const app = {
+  title: 'Añadir cervezas',
+  subtitle: 'Usa el formulario para añadir tus cervezas preferidas',
+  cervezas: []
 }
 
-const minusOne = () => {
-  console.log('minusOne')
+const onFormSubmit = event => {
+  event.preventDefault()
+  const cerveza = event.target.elements['cerveza'].value
+  if (cerveza) {
+    app.cervezas.push(cerveza)
+    event.target.elements.cerveza.value = ''
+    renderApp()
+    console.log(app.cervezas)
+  }
 }
 
-const reset = () => {
-  console.log('reset')
+const removeAll = () => {
+  console.log(app.cervezas)
+  app.cervezas = []
+  console.log(app.cervezas)
+  renderApp()
 }
-const template = (
-  <div>
-    <h1>Count: {count}</h1>
-    <button onClick={addOne}>+1</button>
-    <button onClick={minusOne}>-1</button>
-    <button onClick={reset}>reset</button>
-  </div>
-)
 
-const appRoot = document.getElementById('app')
+const renderApp = () => {
+  const template = (
+    <div>
+      <header>
+        <h1>{app.title}</h1>
+        {app.subtitle ? <p>{app.subtitle}</p> : ''}
+      </header>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="cerveza" />
+        <button>Añadir cerveza</button>
+        <button onClick={removeAll}>Borrar cervezas</button>
+      </form>
+      {app.cervezas.length ? <h2>Lista de cervezas </h2> : ''}
+      {/* {app.cervezas.length !== 0 && <h2>Lista de cervezas </h2>} */}
+      {app.cervezas.map(cerveza => (
+        <p>{cerveza}</p>
+      ))}
+    </div>
+  )
+  const appRoot = document.getElementById('app')
+  ReactDOM.render(template, appRoot)
+}
 
-ReactDOM.render(template, appRoot)
+renderApp()
+
+// {app.cervezas.length !== 0 && <h2>Lista de cervezas </h2>}

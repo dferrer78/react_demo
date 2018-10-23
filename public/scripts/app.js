@@ -1,45 +1,81 @@
 'use strict';
 
 /* global ReactDOM */
-console.log('Aplicación en ejecución');
-var count = 0;
-var addOne = function addOne() {
-  console.log('addOne');
+
+var app = {
+  title: 'Añadir cervezas',
+  subtitle: 'Usa el formulario para añadir tus cervezas preferidas',
+  cervezas: []
 };
 
-var minusOne = function minusOne() {
-  console.log('minusOne');
+var onFormSubmit = function onFormSubmit(event) {
+  event.preventDefault();
+  var cerveza = event.target.elements['cerveza'].value;
+  if (cerveza) {
+    app.cervezas.push(cerveza);
+    event.target.elements.cerveza.value = '';
+    renderApp();
+    console.log(app.cervezas);
+  }
 };
 
-var reset = function reset() {
-  console.log('reset');
+var removeAll = function removeAll() {
+  console.log(app.cervezas);
+  app.cervezas = [];
+  console.log(app.cervezas);
+  renderApp();
 };
-var template = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
+
+var renderApp = function renderApp() {
+  var template = React.createElement(
+    'div',
     null,
-    'Count: ',
-    count
-  ),
-  React.createElement(
-    'button',
-    { onClick: addOne },
-    '+1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: minusOne },
-    '-1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: reset },
-    'reset'
-  )
-);
+    React.createElement(
+      'header',
+      null,
+      React.createElement(
+        'h1',
+        null,
+        app.title
+      ),
+      app.subtitle ? React.createElement(
+        'p',
+        null,
+        app.subtitle
+      ) : ''
+    ),
+    React.createElement(
+      'form',
+      { onSubmit: onFormSubmit },
+      React.createElement('input', { type: 'text', name: 'cerveza' }),
+      React.createElement(
+        'button',
+        null,
+        'A\xF1adir cerveza'
+      ),
+      React.createElement(
+        'button',
+        { onClick: removeAll },
+        'Borrar cervezas'
+      )
+    ),
+    app.cervezas.length ? React.createElement(
+      'h2',
+      null,
+      'Lista de cervezas '
+    ) : '',
+    app.cervezas.map(function (cerveza) {
+      return React.createElement(
+        'p',
+        null,
+        cerveza
+      );
+    })
+  );
+  var appRoot = document.getElementById('app');
+  ReactDOM.render(template, appRoot);
+};
 
-var appRoot = document.getElementById('app');
+renderApp();
 
-ReactDOM.render(template, appRoot);
+// {app.cervezas.length !== 0 && <h2>Lista de cervezas </h2>}
