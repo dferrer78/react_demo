@@ -2,27 +2,37 @@
 
 /* global ReactDOM */
 console.log('Aplicación en ejecución');
-// ES6
-var user = {
-  name: 'Pepe',
-  cities: ['Zaragoza', 'Madrid', 'Lérida'],
-  showCities: function showCities() {
-    // ES6 metodo con formato ES6 
-    return this.cities;
-  }
+var count = 0;
+var addOne = function addOne() {
+  console.log('addOne');
 };
 
-// pongo llaves porque pongo codigo javascript {city}
 var template = React.createElement(
   'div',
   null,
-  user.showCities().map(function (city) {
-    return React.createElement(
-      'p',
-      null,
-      city
-    );
-  })
+  React.createElement(
+    'h1',
+    null,
+    'Count: ',
+    count
+  ),
+  React.createElement(
+    'button',
+    { onClick: addOne },
+    '+1'
+  ),
+  React.createElement(
+    'button',
+    { onClick: minusOne },
+    '-1'
+  ),
+  React.createElement(
+    'button',
+    { onClick: reset },
+    'reset'
+  )
 );
+
 var appRoot = document.getElementById('app');
+
 ReactDOM.render(template, appRoot);

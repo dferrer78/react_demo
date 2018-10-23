@@ -1,5 +1,7 @@
 /* global ReactDOM */
+
 console.log('Aplicación en ejecución')
+
 let count = 0
 const addOne = () => {
   console.log('addOne')
